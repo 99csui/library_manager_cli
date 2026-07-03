@@ -1,0 +1,58 @@
+import unittest
+from library import Library
+from book import Book
+
+
+class TestLibrary(unittest.TestCase):
+
+    def test_library_start_with_empty_books(self):
+        library = Library()
+        result =len(library.books)
+        self.assertEqual(result,0)
+    
+    
+    def test_add_book_adds_valid_book(self ):
+        library = Library()
+        book = Book(1,"Clean Code","Robert C. Martin")
+        result = library.add_book(book)
+
+        self.assertEqual(len(library.books),1)
+
+
+    def test_add_book_returns_false_for_invalid_object(self):
+        library = Library()
+        book = "this is a test"
+        result = library.add_book(book)
+
+        self.assertFalse(result)
+
+
+    def test_add_book_returns_false_for_duplicated_book(self):
+        library = Library()
+        book1 = Book(1,"Clean Code","Robert C. Martin")
+        book2 = Book(1,"Clean Code","Robert C. Martin")
+        
+        library.add_book(book1)
+        result = library.add_book(book2)
+
+        self.assertFalse(result)
+
+
+    def test_find_book_by_id_returns_book_when_exist(self):
+        library = Library()
+        book = Book(1,"Clean Code","Robert C. Martin")
+        library.add_book(book)
+
+        result = library.find_book_by_id(1)
+        self.assertEqual(result, book)
+
+
+    def test_find_book_by_id_returns_none_when_not_exists(self):
+        library = Library()
+        book = Book(1,"Clean Code","Robert C. Martin")
+        
+        library.add_book(book)
+        
+        result = library.find_book_by_id(2)
+        self.assertIsNone(result)
+
