@@ -40,10 +40,19 @@ class Library:
         pass
 
 
+
     def borrow_book(self, book_id):
-        pass
+        founded_book = self.find_book_by_id(book_id)
+        if founded_book is None:
+            return None
+        return founded_book.borrow()
+        
 
 
     def return_book(self, book_id):
-        pass
+        founded_book = self.find_book_by_id(book_id)
+        if founded_book is None:
+            return None
+        return founded_book.return_book()
+
 

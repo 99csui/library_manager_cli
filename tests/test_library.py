@@ -56,3 +56,65 @@ class TestLibrary(unittest.TestCase):
         result = library.find_book_by_id(2)
         self.assertIsNone(result)
 
+
+    def test_borrow_book_returns_none_when_book_not_exist(self):
+        library = Library()
+
+        result = library.borrow_book(1)
+
+        self.assertIsNone(result)
+
+
+    def test_borrow_book_returns_true_when_book_is_available(self):
+        library = Library()
+        book = Book(1,"Clean Code","Robert C. Martin")
+        
+        library.add_book(book)
+        result = library.borrow_book(1)
+
+        self.assertTrue(result)
+    
+
+    def test_borrow_book_returns_false_when_book_is_alredy_borrowed(self):
+        library = Library()
+        book = Book(1,"Clean Code","Robert C. Martin")
+        
+        book.borrow()
+        library.add_book(book)
+
+        result = library.borrow_book(1)
+
+        self.assertFalse(result)
+
+
+    def test_return_book_returns_none_when_book_not_exist(self):
+        library = Library()
+
+        result = library.return_book(1)
+
+        self.assertIsNone(result)
+
+
+    def test_return_book_returns_true_when_book_is_borrowed(self):
+        library = Library()
+        book = Book(1,"Clean Code","Robert C. Martin")
+        
+        book.borrow()
+        library.add_book(book)
+
+        result = library.return_book(1)
+
+        self.assertTrue(result)
+
+
+    def test_return_book_returns_false_when_book_is_available(self):
+        library = Library()
+        book = Book(1,"Clean Code","Robert C. Martin")
+        
+        library.add_book(book)
+
+        result = library.return_book(1)
+
+        self.assertFalse(result)
+
+
