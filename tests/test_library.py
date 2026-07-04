@@ -118,3 +118,62 @@ class TestLibrary(unittest.TestCase):
         self.assertFalse(result)
 
 
+    def test_list_books_return_a_list_when_has_books(self):
+        library = Library()
+        book = Book(1,"Clean Code","Robert C. Martin")
+        
+        library.add_book(book)
+
+        result = library.list_books()
+
+        self.assertIsInstance(result,list)
+
+
+    def test_list_books_returns_empty_list_when_not_have_books(self):
+        library = Library()
+        
+        result = library.list_books()
+
+        self.assertEqual(len(result),0)
+
+
+    def test_list_books_returns_added_books(self):
+        library = Library()
+        book = Book(1,"Clean Code","Robert C. Martin")
+        
+        library.add_book(book)
+
+        result = library.list_books()
+
+        self.assertEqual(result[0],book)
+
+    def test_remove_book_returns_true_when_book_is_removed(self):
+        library = Library()
+        book = Book(1,"Clean Code","Robert C. Martin")
+        
+        library.add_book(book)
+
+        result = library.remove_book(1)
+        
+        self.assertTrue(result)
+
+    def test_remove_book_remove_book_from_books(self):
+        library = Library()
+        book = Book(1,"Clean Code","Robert C. Martin")
+        
+        library.add_book(book)
+        library.remove_book(1)
+        
+        result = library.find_book_by_id(1)
+
+        self.assertIsNone(result)
+
+    def test_remove_book_returns_false_when_book_not_exist(self):
+        library = Library()
+        book = Book(1,"Clean Code","Robert C. Martin")
+        
+        library.add_book(book)
+
+        result = library.remove_book(2)
+
+        self.assertFalse(result)

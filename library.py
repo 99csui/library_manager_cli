@@ -37,7 +37,7 @@ class Library:
 
 
     def list_books(self):
-        pass
+        return self.books
 
 
 
